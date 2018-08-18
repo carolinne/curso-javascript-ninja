@@ -13,6 +13,7 @@ var isTruthy = function(valor) {
     }
     return false;
 }
+/*ou usando ternário: return valor ? true : false;; ou com a dupla negação (eu ainda não entendi bem isso): !!param */
 
 // Invoque a função criada acima, passando todos os tipos de valores `falsy`.
 isTruthy(0); //false
@@ -20,6 +21,7 @@ isTruthy(null); // false
 isTruthy(undefined); //false
 isTruthy(false); //false
 isTruthy(''); //false
+isTruthy(NaN); //false
 
 /*
 Invoque a função criada acima passando como parâmetro 10 valores `truthy`.
@@ -27,9 +29,13 @@ Invoque a função criada acima passando como parâmetro 10 valores `truthy`.
 isTruthy(1); //true
 isTruthy('0'); //true
 isTruthy(true); //true
+isTruthy([]); //true
 isTruthy({}); //true
 isTruthy("a"); //true
-isTruthy(5); //true
+isTruthy(function() {}); //true
+isTruthy('uma frase quase completa'); //true
+isTruthy(5*3); //true
+isTruthy(['0']); //true
 
 /*
 Declare uma variável chamada `carro`, atribuindo à ela um objeto com as
@@ -51,7 +57,7 @@ var carro = {
     cor: "cor",
     quantasPortas: 4,
     assentos: 5,
-    quantidadePessoas: 0,
+    quantidadePessoas: 0
 }
 
 /*
@@ -122,6 +128,23 @@ carro.adicionarPessoas = function (pessoa) {
       return "Só cabem mais " + vagasRestantes + " pessoas!"
   }
 }
+/*código da correção :
+carro.adicionarPessoas = function(numPessoas) {
+  var totalPessoas = carro.quantidadePessoas + numPessoas;
+  if(carro.quantidadePessoas === carro.assentos && totalPessoas >= carro.assentos) {
+    return "O carro já está lotado!
+  }
+  
+  if(totalPessoas > carro.assentos) {
+    var quantasPessoasCabem = carro.assentos - carro.quantidadePessoas;
+    var pluralOuSingular = quantasPessoasCabem === 1 ? ' pessoa' : 'pessoas'
+    return 'Só cabem mais ' + quantasPessoasCabem + pluralOuSingular + '!';
+  }
+  
+  carro.quantidadePessoas += numPessoas;
+  return 'Já temos ' + carro.quantidadePessoas + ' pessoas no carro!';
+}
+*/
 
 /*
 Agora vamos verificar algumas informações do carro. Para as respostas abaixo,
@@ -134,13 +157,13 @@ Qual a cor atual do carro?
 carro.obterCor() // Cor
 
 // Mude a cor do carro para vermelho.
-carro.mudarCor("vermelho") // vermelho
+carro.mudarCor("vermelho") // undefined
 
 // E agora, qual a cor do carro?
 carro.obter() // vermelho
 
 // Mude a cor do carro para verde musgo.
-carro.mudarCor("verde musgo") // verde musgo
+carro.mudarCor("verde musgo") // undefined
 
 // E agora, qual a cor do carro?
 carro.obterCor() // verde musgo
